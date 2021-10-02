@@ -1,8 +1,28 @@
-import React from 'react';
-import { data } from '../../../data';
+import React from "react";
+import { data } from "../../../data";
 
 const UseStateArray = () => {
-  return <h2>useState array example</h2>;
+  const [people, setPeople] = React.useState(data);
+  const removeItem = (id) => {
+    let newPeople = people.filter((i) => i.id !== id);
+    setPeople(newPeople);
+  };
+  return (
+    <>
+      {people.map((i) => {
+        const { id, name } = i;
+        return (
+          <div key={id} className="item">
+            <h4>{name}</h4>
+            <button onClick={() => removeItem(id)}>remove this item</button>
+          </div>
+        );
+      })}
+      <button type="btn" className="btn" onClick={() => setPeople([])}>
+        delete all
+      </button>
+    </>
+  );
 };
 
 export default UseStateArray;
